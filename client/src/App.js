@@ -8,6 +8,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import { makeStyles } from '@material-ui/core/styles';
 import { useState, useEffect } from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress';
 const axios = require('axios')
 
 
@@ -43,7 +44,6 @@ function App() {
   }
   , [])
 
-
   const classes = useStyles();
   return (
     <Paper className={classes.root}>
@@ -60,7 +60,13 @@ function App() {
         </TableHead>
         <TableBody>
           {customers ? customers.map(item => <Customer data={item}></Customer>
-          ) : "loading.."}
+          ) : 
+          <TableRow>
+            <TableCell colspan="6" align="center">
+              <CircularProgress color="secondary"></CircularProgress>
+            </TableCell>
+          </TableRow>
+          }
         </TableBody>
       </Table>
     </Paper>
