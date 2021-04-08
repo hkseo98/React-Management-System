@@ -1,0 +1,31 @@
+.form {
+    background: yellow;
+    width: 60px;
+    height: 15px;
+    left: 300px;
+    top: 39px;
+    margin: auto;
+    position: static;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    border-radius: 3px;
+}
+
+span {
+    margin: 3px;
+    align-content: center;
+}
+
+button {
+    margin:5px;
+}
+
+.newPost {
+    background-color: white;
+    width: 300px;
+    padding: 5px;
+    height: 320px;
+    margin: 15px;
+    border-radius: 12px;
+    box-shadow: 1px 3px 5px 2px;
+}

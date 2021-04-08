@@ -9,6 +9,8 @@ import TableHead from '@material-ui/core/TableHead'
 import { makeStyles } from '@material-ui/core/styles';
 import { useState, useEffect } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import CustomerAdd from './components/CustomerAdd'
+
 const axios = require('axios')
 
 
@@ -19,15 +21,18 @@ const useStyles = makeStyles({
     color: 'white',
     overflowX: "auto",
     marginTop: 3,
+    minWidth: 1080,
+    maxHeight: 400
   },
   table: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     minWidth: 1080,
+    maxHeight: 500
   },
   font: {
     fontSize: 20,
     fontWeight: 700,
-  }
+  },
 });
 
 
@@ -35,17 +40,16 @@ const useStyles = makeStyles({
 function App() {
   let [customers, setCustomers] = useState(null);
 
+
   useEffect(() => {
-   function a() {
      axios.get('http://localhost:5000/api/customers')
     .then((res) => setCustomers(res.data))
-   }
-    setTimeout(a, 1000)
   }
   , [])
 
   const classes = useStyles();
   return (
+    <div>
     <Paper className={classes.root}>
       <Table>
         <TableHead className={classes.table}>
@@ -70,6 +74,8 @@ function App() {
         </TableBody>
       </Table>
     </Paper>
+    <CustomerAdd state={setCustomers} cus={customers} className={classes.form}></CustomerAdd>
+    </div>
   );
 }
 

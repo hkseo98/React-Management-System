@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 const fs = require('fs');
 const bodyParser = require('body-parser');
-
+const multer = require('multer');
 app.use(cors())
 const port = process.env.PORT || 5000;
 
@@ -22,6 +22,25 @@ const connection = mysql.createConnection({
   database: conf.database
 });
 connection.connect();
+
+const upload = multer({dest: './upload'})
+
+app.use('/image', express.static('./upload'));
+app.post('/api/customers', upload.single('image'), (req, res) => {
+  let sql = "INSERT INTO CUSTOMER VALUES (?, ?, ?, ?, ?, ?)";
+  let id = req.body.id;
+  let image = 'http://localhost:5000/image/' + req.file.filename;
+  let name = req.body.name;
+  let birth = req.body.birth;
+  let sex = req.body.sex;
+  let job = req.body.job;
+  let params = [id, image, name, birth, sex, job];
+  console.log(id, image, name, birth, sex, job)
+  connection.query(sql, params, 
+    (err, rows, fields) => {
+      res.send(rows)
+    })
+})
 
 app.get('/api/customers', (req, res) => {
     connection.query(
